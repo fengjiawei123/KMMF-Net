@@ -9,19 +9,24 @@ cross-attention, and a Mamba decoder. All training and inference paths operate
 on luminance tensors in `[0, 1]`; visible or PET chroma is restored only when
 saving a color result.
 
-![MSRS validation example: visible, infrared, fused](assets/msrs_validation_example.png)
-
-*From left to right: visible luminance, infrared input, and fused output.*
-
 ## Architecture
 
-```text
-Visible  -> Mamba encoder -> FFT -> low  -> KAN implicit fusion --------+
-                              \-> high -> cross-attention -----------+  |
-                                                                    |  +-> Mamba decoder -> fused
-Infrared -> Mamba encoder -> FFT -> low  ----------------------------+  |
-                              \-> high -------------------------------+
-```
+<p align="center">
+  <img src="assets/paper/architecture.png" width="100%" alt="KMMF-Net architecture">
+</p>
+
+KMMF-Net first extracts modality-specific features with two Mamba encoders and
+decomposes them into low- and high-frequency components. Low-frequency
+structure is aligned in an implicit space and fused by KAN, while
+high-frequency detail is enhanced through cross-attention and local feature
+fusion. A Mamba decoder reconstructs the final fused image.
+
+**Main components:**
+
+- **Mamba encoders/decoder** model long-range dependencies efficiently.
+- **FFT decomposition** separates global structure from texture and edges.
+- **Implicit space mapping + KAN fusion** handles nonlinear cross-modal gaps.
+- **High-frequency cross-attention** preserves salient targets and fine detail.
 
 The repository provides two Mamba backends:
 
@@ -29,6 +34,44 @@ The repository provides two Mamba backends:
   Linux/CUDA formal training.
 - `lite`: portable directional-convolution fallback for Windows, debugging,
   and the included MSRS checkpoint. It is not a replacement for SS2D.
+
+## Qualitative Results
+
+### Infrared and Visible Image Fusion
+
+<p align="center">
+  <img src="assets/paper/ir_vis_results.png" width="100%" alt="Infrared-visible fusion comparison">
+</p>
+
+KMMF-Net preserves salient thermal targets while retaining visible-light
+background structure, texture, and local contrast on the VIF task.
+
+### Medical Image Fusion
+
+<p align="center">
+  <img src="assets/paper/medical_results.png" width="100%" alt="Medical image fusion comparison">
+</p>
+
+For CT-MRI and PET-MRI fusion, KMMF-Net jointly retains anatomical structure,
+soft-tissue detail, and functional color information.
+
+## Quantitative Results
+
+### Infrared and Visible Fusion
+
+<p align="center">
+  <img src="assets/paper/table_ir_vis.png" width="100%" alt="Quantitative infrared-visible fusion results">
+</p>
+
+### Medical Image Fusion
+
+<p align="center">
+  <img src="assets/paper/table_medical.png" width="100%" alt="Quantitative medical fusion results">
+</p>
+
+The complete model achieves the strongest overall performance across the
+M3FD, TNO, MRI-CT, and MRI-PET evaluations, with leading results on most
+reported quality, information, structural, and similarity metrics.
 
 ## Repository Layout
 
@@ -140,6 +183,11 @@ python test.py \
 For a single pair, pass two image paths instead of directories. Use
 `--color-from gray` to save grayscale fusion or `--color-from b` to retain the
 second modality's chroma.
+
+The bundled checkpoint produces the following validation preview (visible
+luminance, infrared input, and fused output from left to right):
+
+![Bundled checkpoint validation preview](assets/msrs_validation_example.png)
 
 ## Training
 
