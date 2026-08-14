@@ -218,4 +218,13 @@ Formal KAN fusion uses `pykan==0.2.8`. See [third_party/README.md](third_party/R
 
 Please cite the KMMF-Net paper when using this repository. The final BibTeX
 entry will be added after the publication metadata is available.
+```bibtex
+@inproceedings{feng2025kmmf,
+  title={KMMF-Net: Implicit Fusion with KAN-Guided Mamba Modeling},
+  author={Feng, Jiawei and Song, Haiyu and Mao, Yun and Wang, Jiayu and Ge, Mingyu and Du, Zhengchi and Chen, Jialiang and Wang, Zeyu},
+  booktitle={Chinese Conference on Pattern Recognition and Computer Vision (PRCV)},
+  pages={313--326},
+  year={2025},
+  organization={Springer}
+}
 
