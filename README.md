@@ -216,8 +216,8 @@ Formal KAN fusion uses `pykan==0.2.8`. See [third_party/README.md](third_party/R
 
 ## Citation
 
-Please cite the KMMF-Net paper when using this repository. The final BibTeX
-entry will be added after the publication metadata is available.
+Please cite the KMMF-Net paper when using this repository:
+
 ```bibtex
 @inproceedings{feng2025kmmf,
   title={KMMF-Net: Implicit Fusion with KAN-Guided Mamba Modeling},
@@ -227,4 +227,4 @@ entry will be added after the publication metadata is available.
   year={2025},
   organization={Springer}
 }
-
+```
