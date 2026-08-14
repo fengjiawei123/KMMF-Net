@@ -1,0 +1,12 @@
+numpy==1.24.4
+Pillow>=10.0
+PyYAML>=6.0
+tqdm>=4.66
+einops>=0.8
+timm==0.9.16
+fvcore>=0.1.5
+pykan==0.2.8
+scikit-learn>=1.1
+sympy>=1.11
+pandas>=2.0
+matplotlib>=3.6

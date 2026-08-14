@@ -1,0 +1,12 @@
+* text=auto
+*.py text eol=lf
+*.sh text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.ps1 text eol=crlf
+*.png binary
+*.pt binary
+
+# Keep the pinned upstream file byte-identical and omit generated diffs.
+third_party/VMamba/vmamba.py -text -diff linguist-vendored
