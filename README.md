@@ -151,15 +151,7 @@ python scripts/inspect_dataset.py --config configs/medical.yaml
 Use `--data-root /path/to/dataset` with `train.py` or
 `scripts/inspect_dataset.py` to override the YAML path without editing it.
 
-## Fusion Loss
 
-The released training objective is:
-
-```text
-L_int = MSE(w_vis * (Y_vis - Y_f), 0) + MSE(w_ir * (Y_ir - Y_f), 0)
-G*    = source Sobel response with the larger absolute magnitude
-L_grad = L1(Sobel_x(Y_f), G*_x) + L1(Sobel_y(Y_f), G*_y)
-L_total = lambda_int * L_int + lambda_grad * L_grad
 ```
 
 Gradient selection preserves the sign of the selected source response. The
@@ -184,10 +176,6 @@ For a single pair, pass two image paths instead of directories. Use
 `--color-from gray` to save grayscale fusion or `--color-from b` to retain the
 second modality's chroma.
 
-The bundled checkpoint produces the following validation preview (visible
-luminance, infrared input, and fused output from left to right):
-
-![Bundled checkpoint validation preview](assets/msrs_validation_example.png)
 
 ## Training
 
@@ -231,7 +219,3 @@ Formal KAN fusion uses `pykan==0.2.8`. See [third_party/README.md](third_party/R
 Please cite the KMMF-Net paper when using this repository. The final BibTeX
 entry will be added after the publication metadata is available.
 
-## License
-
-The original code in this repository is released under the MIT License. The
-vendored VMamba component remains subject to its included upstream license.
